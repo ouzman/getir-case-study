@@ -11,73 +11,54 @@ beforeEach(() => {
 })
 
 describe('success', () => {
-  it('responds with passed object and status 200', () => {
-    expect(response.success(res)({ prop: 'value' })).toBeNull()
+  it('responds with passed object, success code, success msg and status 200', () => {
+    expect(response.success(res)({ prop: 'value' })).toBeUndefined()
     expect(res.status).toBeCalledWith(200)
-    expect(res.json).toBeCalledWith({ prop: 'value' })
-  })
-
-  it('responds with passed object and status 201', () => {
-    expect(response.success(res, 201)({ prop: 'value' })).toBeNull()
-    expect(res.status).toBeCalledWith(201)
-    expect(res.json).toBeCalledWith({ prop: 'value' })
-  })
-
-  it('does not send any response when object has not been passed', () => {
-    expect(response.success(res, 201)()).toBeNull()
-    expect(res.status).not.toBeCalled()
+    expect(res.json).toBeCalledWith({ code: 0, msg: 'Success', prop: 'value' })
   })
 })
 
-describe('notFound', () => {
-  it('responds with status 404 when object has not been passed', () => {
-    expect(response.notFound(res)()).toBeNull()
+describe('clientErrorHandler', () => {
+  it('responds with status 400 when error occurred on bodymen', () => {
+    const clientErrorHandler = response.clientErrorHandler()
+    const error = { message: 'bodymen error message' }
+    expect(clientErrorHandler({}, { bodymen: { error } }, res)).toBeUndefined()
+    expect(res.status).toBeCalledWith(400)
+    expect(res.json).toBeCalledWith({ code: 1, msg: 'bodymen error message', error })
+  })
+})
+
+describe('serverErrorHandler', () => {
+  it('responds with status 500 and error msg when error occurred on something', () => {
+    const serverErrorHandler = response.serverErrorHandler()
+    const error = { msg: 'some msg', details: 'some details' }
+    expect(serverErrorHandler(error, {}, res)).toBeUndefined()
+    expect(res.status).toBeCalledWith(500)
+    expect(res.json).toBeCalledWith({ code: 2, msg: 'some msg', error })
+  })
+
+  it('responds with status 500 and error message when error occurred on something', () => {
+    const serverErrorHandler = response.serverErrorHandler()
+    const error = { message: 'some message', details: 'some details' }
+    expect(serverErrorHandler(error, {}, res)).toBeUndefined()
+    expect(res.status).toBeCalledWith(500)
+    expect(res.json).toBeCalledWith({ code: 2, msg: 'some message', error })
+  })
+
+  it('responds with status 500 and default message when error occurred on something and there is no error message', () => {
+    const serverErrorHandler = response.serverErrorHandler()
+    const error = { details: 'some details' }
+    expect(serverErrorHandler(error, {}, res)).toBeUndefined()
+    expect(res.status).toBeCalledWith(500)
+    expect(res.json).toBeCalledWith({ code: 2, msg: 'Unknown error occurred', error })
+  })
+})
+
+describe('notFoundHandler', () => {
+  it('responds with status 404 when unknown route', () => {
+    const notFoundHandler = response.notFoundHandler()
+    expect(notFoundHandler({}, res)).toBeUndefined()
     expect(res.status).toBeCalledWith(404)
-    expect(res.end).toHaveBeenCalledTimes(1)
-  })
-
-  it('returns the passed object and does not send any response', () => {
-    expect(response.notFound(res)({ prop: 'value' })).toEqual({ prop: 'value' })
-    expect(res.status).not.toBeCalled()
-    expect(res.end).not.toBeCalled()
-  })
-})
-
-describe('authorOrAdmin', () => {
-  let user, entity
-
-  beforeEach(() => {
-    user = {
-      id: 1,
-      role: 'user'
-    }
-    entity = {
-      author: {
-        id: 1,
-        equals (id) {
-          return id === this.id
-        }
-      }
-    }
-  })
-
-  it('returns the passed entity when author is the same', () => {
-    expect(response.authorOrAdmin(res, user, 'author')(entity)).toEqual(entity)
-  })
-
-  it('returns the passed entity when author is admin', () => {
-    user.role = 'admin'
-    expect(response.authorOrAdmin(res, user, 'user')(entity)).toEqual(entity)
-  })
-
-  it('responds with status 401 when author is not the same or admin', () => {
-    user.id = 2
-    expect(response.authorOrAdmin(res, user, 'author')(entity)).toBeNull()
-    expect(res.status).toBeCalledWith(401)
-    expect(res.end).toHaveBeenCalledTimes(1)
-  })
-
-  it('returns null without sending response when entity has not been passed', () => {
-    expect(response.authorOrAdmin(res, user, 'author')()).toBeNull()
+    expect(res.json).toBeCalledWith({ code: 3, msg: 'Not found' })
   })
 })

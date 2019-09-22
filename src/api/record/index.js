@@ -12,7 +12,6 @@ const router = new Router()
  * @api {get} /records Retrieve records
  * @apiName RetrieveRecords
  * @apiGroup Record
- * @apiUse listParams
  * @apiSuccess {Object[]} records List of records.
  * @apiError {Object} 400 Some parameters may contain invalid values.
  */
