@@ -1,6 +1,8 @@
 import { Router } from 'express'
 import { middleware as body } from 'bodymen'
 import { first100Record, query } from './controller'
+import { dateValidator } from '../validators'
+
 export { default as Record } from './model'
 export { schema } from './model'
 
@@ -27,6 +29,27 @@ router.get('/', body(), first100Record)
  * @apiSuccess {Object} record Record's data.
  * @apiError {Object} 400 Some parameters may contain invalid values.
  */
-router.post('/', body(), query)
+router.post('/', body({
+  startDate: {
+    type: Date,
+    required: true,
+    validate: dateValidator
+  },
+  endDate: {
+    type: Date,
+    required: true,
+    validate: dateValidator
+  },
+  minCount: {
+    type: Number,
+    required: true,
+    min: 0
+  },
+  maxCount: {
+    type: Number,
+    required: true,
+    min: 0
+  }
+}), query)
 
 export default router

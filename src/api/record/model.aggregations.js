@@ -1,7 +1,7 @@
 export const createdAtBetween = ({ lowerBound, upperBound }) =>
   ({
     $match: {
-      createdAt: { $lt: upperBound, $gt: lowerBound }
+      createdAt: { $gte: lowerBound, $lt: upperBound }
     }
   })
 
@@ -26,6 +26,6 @@ export const projectionForTotalCount = () =>
 export const totalCountBetween = ({ lowerBound, upperBound }) =>
   ({
     $match: {
-      totalCount: { $lt: upperBound, $gt: lowerBound }
+      totalCount: { $gte: lowerBound, $lt: upperBound }
     }
   })
