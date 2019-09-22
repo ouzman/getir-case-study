@@ -6,6 +6,7 @@ export const first100Record = (_, res, next) =>
   Record.find()
     .limit(100)
     .then((records) => records.map((record) => record.view()))
+    .then(records => ({ 'records': records }))
     .then(success(res))
     .catch(next)
 
