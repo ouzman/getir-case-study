@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { middleware as body } from 'bodymen'
 import { first100Record, query } from './controller'
-import { dateValidator } from '../validators'
+import { dateStringValidator } from '../validators'
 
 export { default as Record } from './model'
 export { schema } from './model'
@@ -31,14 +31,14 @@ router.get('/', body(), first100Record)
  */
 router.post('/', body({
   startDate: {
-    type: Date,
+    type: String,
     required: true,
-    validate: dateValidator
+    validate: dateStringValidator
   },
   endDate: {
-    type: Date,
+    type: String,
     required: true,
-    validate: dateValidator
+    validate: dateStringValidator
   },
   minCount: {
     type: Number,

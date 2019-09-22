@@ -11,7 +11,7 @@ export const first100Record = (_, res, next) =>
 
 export const query = ({ bodymen: { body } }, res, next) =>
   Record.aggregate([
-    createdAtBetween({ lowerBound: body.startDate, upperBound: body.endDate }),
+    createdAtBetween({ lowerBound: new Date(body.startDate), upperBound: new Date(body.endDate) }),
     projectionForTotalCount(),
     totalCountBetween({ lowerBound: body.minCount, upperBound: body.maxCount })
   ])
