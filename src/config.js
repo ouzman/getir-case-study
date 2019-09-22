@@ -35,10 +35,10 @@ const config = {
       }
     }
   },
-  test: { },
+  test: {},
   development: {
     mongo: {
-      uri: 'mongodb://localhost/getir-case-study-dev',
+      uri: requireProcessEnv('MONGODB_URI'),
       options: {
         debug: true
       }
@@ -48,7 +48,7 @@ const config = {
     ip: process.env.IP || undefined,
     port: process.env.PORT || 8080,
     mongo: {
-      uri: process.env.MONGODB_URI || 'mongodb://localhost/getir-case-study'
+      uri: requireProcessEnv('MONGODB_URI')
     }
   }
 }
