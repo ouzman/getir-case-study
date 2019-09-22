@@ -1,26 +1,9 @@
-export const success = (res, status) => (entity) => {
-  if (entity) {
-    res.status(status || 200).json(entity)
-  }
-  return null
+export const success = (res) => (entity) => {
+  response(res, 200, 0, 'Success', entity)
 }
 
-export const notFound = (res) => (entity) => {
-  if (entity) {
-    return entity
-  }
-  res.status(404).end()
-  return null
-}
+const response = (res, status, code, msg, otherFields) => {
+  const jsonOutput = { code, msg, ...otherFields }
 
-export const authorOrAdmin = (res, user, userField) => (entity) => {
-  if (entity) {
-    const isAdmin = user.role === 'admin'
-    const isAuthor = entity[userField] && entity[userField].equals(user.id)
-    if (isAuthor || isAdmin) {
-      return entity
-    }
-    res.status(401).end()
-  }
-  return null
+  res.status(status).json(jsonOutput)
 }
