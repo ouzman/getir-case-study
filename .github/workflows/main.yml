@@ -11,9 +11,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - name: touch .env
-        run: touch .env
-      - name: npm install and docs build
+      - name: npm install and test
         run: |
           npm install
           npm run test
+        env:
+          MONGODB_URI: mongodb://localhost:9000/getir-case-study
