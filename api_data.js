@@ -48,6 +48,19 @@ define({ "api": [
         ]
       }
     },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "400",
+            "description": "<p>Some parameters may contain invalid values.</p>"
+          }
+        ]
+      }
+    },
     "version": "0.0.0",
     "filename": "src/api/record/index.js",
     "groupTitle": "Record"
@@ -67,19 +80,6 @@ define({ "api": [
             "optional": false,
             "field": "records",
             "description": "<p>List of records.</p>"
-          }
-        ]
-      }
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "type": "Object",
-            "optional": false,
-            "field": "400",
-            "description": "<p>Some parameters may contain invalid values.</p>"
           }
         ]
       }
