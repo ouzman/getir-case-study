@@ -13,7 +13,6 @@ const router = new Router()
  * @apiName RetrieveRecords
  * @apiGroup Record
  * @apiSuccess {Object[]} records List of records.
- * @apiError {Object} 400 Some parameters may contain invalid values.
  */
 router.get('/', body(), first100Record)
 
