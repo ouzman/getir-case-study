@@ -17,23 +17,12 @@ npm run prod # run the API in production mode
 npm run docs # generate API docs
 ```
 
+## API Docs
+Please see [GitHub Pages](https://ouzman.github.io/getir-case-study/) or [DOCS.md](https://github.com/ouzman/getir-case-study/blob/master/DOCS.md)
+
 ## Playing locally
 
-Only, you will need to specify the value of MONGODB_URI variable in `.env` file
-
-```bash
-$ mongod
-```
-
-Then, run the server in development mode.
-
-```bash
-$ npm run dev
-Express server listening on http://0.0.0.0:9000, in development mode
-```
-
-If you choose to generate the authentication API, you can start to play with it.
-> Note that creating and authenticating users needs a master key (which is defined in the `.env` file)
+Only, you will need to specify the value of `MONGODB_URI` variable in `.env` file
 
 ### - Getting first 100 records:
 ```bash
