@@ -1,4 +1,4 @@
-name: Blazing fast GitHub Pages deploy
+name: GitHub Pages API Docs Deploy
 
 on:
   push:
@@ -14,6 +14,17 @@ jobs:
         run: |
           npm install
           npm run docs
+      - name: Commit DOCS.md
+        uses: EndBug/add-and-commit@v2.1.0 
+        with: 
+          author_name: Oguzhan Uzman
+          author_email: ouzmann@gmail.com
+          message: DOCS.md updated
+          path: "."
+          pattern: "DOCS.md"
+          force: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
       - name: Deploy site to gh-pages branch
         uses: alex-page/blazing-fast-gh-pages-deploy@v1.0.0
         with:
