@@ -108,22 +108,22 @@ HTTP/1.1 200 OK
 
 ## Directory structure
 
-### src/api/
+### `src/api/`
 
 Here is where the API endpoints are defined. Each API has its own folder.
 
-#### src/api/record/model.js
+#### `src/api/record/model.js`
 
 It defines the Mongoose schema and model for the Records API endpoint. Any changes to the data model should be done here.
 
-#### src/api/record/controller.js
+#### `src/api/record/controller.js`
 
 This is the Records API controller file. It defines the main router middlewares which use the API model.
 
-#### src/api/record/index.js
+#### `src/api/record/index.js`
 
 This is the entry file of the Records API.
 
-### services/
+### `services/`
 
 Here you can find `helpers`, `libraries` and other types of modules which I use in my APIs.
