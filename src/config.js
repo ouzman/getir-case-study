@@ -26,7 +26,6 @@ const config = {
     port: process.env.PORT || 9000,
     ip: process.env.IP || '0.0.0.0',
     apiRoot: process.env.API_ROOT || '',
-    masterKey: requireProcessEnv('MASTER_KEY'),
     mongo: {
       options: {
         db: {
@@ -35,7 +34,11 @@ const config = {
       }
     }
   },
-  test: {},
+  test: {
+    mongo: {
+      uri: 'mongodb://localhost:9000/getir-case-study'
+    }
+  },
   development: {
     mongo: {
       uri: requireProcessEnv('MONGODB_URI'),
