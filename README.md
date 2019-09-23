@@ -16,12 +16,15 @@ npm run dev # run the API in development mode
 npm run prod # run the API in production mode
 npm run docs # generate API docs
 ```
-
+-----------
 ## Playing locally
 
 Only, you will need to specify the value of `MONGODB_URI` variable in `.env` file
 
-### - Getting first 100 records:
+-----------
+## API Examples
+
+### Getting first 100 records:
 ```bash
 curl -X GET \
   http://localhost:9000/records \
@@ -101,41 +104,7 @@ HTTP/1.1 200 OK
 }
 ```
 
-## Deploy
-
-Here is an example on how to deploy to [Heroku](https://heroku.com) using [Heroku CLI](https://devcenter.heroku.com/articles/heroku-command-line):
-```bash
-# start a new local git repository
-git init
-
-# create a new heroku app
-heroku apps:create my-new-app
-
-# add heroku remote reference to the local repository
-heroku git:remote --app my-new-app
-
-# add the MongoLab addon to the heroku app
-heroku addons:create mongolab
-
-# set the environment variables to the heroku app (see the .env file in root directory)
-heroku config:set MASTER_KEY=masterKey JWT_SECRET=jwtSecret
-
-# commit and push the files
-git add -A
-git commit -m "Initial commit"
-git push heroku master
-
-# open the deployed app in the browser
-heroku open
-```
-
-The second time you deploy, you just need to:
-
-```bash
-git add -A
-git commit -m "Update code"
-git push heroku master
-```
+-----------
 
 ## Directory structure
 
